@@ -1,13 +1,17 @@
 <template>
-    <div>
-        SPA is loaded
-    </div>
+    <router-view :key="$route.path" />
 </template>
 
 <script setup lang="ts">
 
 </script>
 
-<style scoped>
+<style>
+  body
+  {
+    height: 100vh;
+    overflow: hidden;
+  }
 
+ 
 </style>
