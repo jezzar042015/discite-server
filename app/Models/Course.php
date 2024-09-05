@@ -19,6 +19,7 @@ class Course extends Model
     'description',
     'level',
     'is_premium',
+    'publish',
     'author_id',
   ];
 
@@ -36,10 +37,10 @@ class Course extends Model
   {
     return 0;
   }
-
+  
   public function getModulesCountAttribute()
   {
-    return 0;
+    return $this->modules()->count();
   }
 
   public function casts(): array
@@ -47,7 +48,8 @@ class Course extends Model
     return [
       'created_at' => 'datetime',
       'updated_at' => 'datetime',
-      'is_premium' => 'boolean'
+      'is_premium' => 'boolean',
+      'publish' => 'boolean',
     ];
   }
 }

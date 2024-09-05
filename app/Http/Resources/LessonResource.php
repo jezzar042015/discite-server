@@ -11,19 +11,20 @@ class LessonResource extends JsonJsonResource
   {
     return [
       'data' => [
-          'id' => $lesson->id,
-          'title' => $lesson->title,
-          'content' => $lesson->content,
-          'module_id' => $lesson->module_id,
-          'author_id' => $lesson->author_id,
-          'order' => $lesson->order,
-          'author' => $lesson->author,
-          'module' => $lesson->module,
-          'exercises' => $lesson->exercises,
-          'comments' => $lesson->comments,
-          'is_premium' => $lesson->is_premium,
-          'created_at' => $lesson->created_at->format('Y-m-d'),
-          'updated_at' => $lesson->updated_at->format('Y-m-d'),
+          'id' => $this->id,
+          'title' => $this->title,
+          'content' => $this->content,
+          'module_id' => $this->module_id,
+          'author_id' => $this->author_id,
+          'order' => $this->order,
+          'author' => $this->author,
+          'module' => $this->module,
+          'exercises' => $this->exercises,
+          'comments' => $this->comments,
+          'is_premium' => $this->is_premium,
+          'publish' => $this->publish,
+          'created_at' => $this->created_at->format('Y-m-d'),
+          'updated_at' => $this->updated_at->format('Y-m-d'),
       ],
     ];
   }

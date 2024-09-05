@@ -21,6 +21,7 @@ class Lesson extends Model
     'author_id',
     'order',
     'is_premium',
+    'publish',
   ];
 
   public function author(): BelongsTo
@@ -53,6 +54,8 @@ class Lesson extends Model
     return [
       'created_at' => 'datetime:Y-m-d',
       'updated_at' => 'datetime:Y-m-d',
+      'is_premium' => 'boolean',
+      'publish' => 'boolean',
     ];
   }
 }

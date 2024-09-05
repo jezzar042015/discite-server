@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CourseController;
+use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\ModuleController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
@@ -28,3 +29,8 @@ Route::get('/modules/{id}', [ModuleController::class, 'show']);
 Route::post('/modules', [ModuleController::class, 'create']);
 Route::put('/modules/{id}', [ModuleController::class, 'update']);
 Route::delete('/modules/{id}', [ModuleController::class, 'destroy']);
+
+Route::get('/modules/{id}/lessons', [LessonController::class, 'modular']);
+Route::get('/lessons/{id}', [LessonController::class, 'show']);
+Route::post('/lessons', [LessonController::class, 'create']);
+Route::put('/lessons/{id}', [LessonController::class, 'update']);

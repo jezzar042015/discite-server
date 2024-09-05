@@ -11,16 +11,17 @@ class ModuleResource extends JsonJsonResource
   {
     return [
       'data' => [
-        'id' => $module->id,
-        'title' => $module->title,
-        'description' => $module->description,
-        'course_id' => $module->course_id,
-        'is_premium' => $module->is_premium,
-        'order' => $module->order,
-        'course' => $module->course,
-        'lessons' => $module->lessons,
-        'created_at' => $module->created_at->format('Y-m-d'),
-        'updated_at' => $module->updated_at->format('Y-m-d'),
+        'id' => $this->id,
+        'title' => $this->title,
+        'description' => $this->description,
+        'course_id' => $this->course_id,
+        'is_premium' => $this->is_premium,
+        'publish' => $this->publish,
+        'order' => $this->order,
+        'course' => $this->course,
+        'lessons' => $this->lessons,
+        'created_at' => $this->created_at->format('Y-m-d'),
+        'updated_at' => $this->updated_at->format('Y-m-d'),
       ],
     ];
   }

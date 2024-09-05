@@ -19,6 +19,7 @@ class Module extends Model
     'description',
     'course_id',
     'is_premium',
+    'publish',
     'order',
   ];
 
@@ -30,7 +31,7 @@ class Module extends Model
 
   public function lessons(): HasMany
   {
-    return $this->hasMany(Lesson::class, 'lesson_id');
+    return $this->hasMany(Lesson::class, 'module_id');
   }
 
   public function casts(): array
@@ -38,6 +39,8 @@ class Module extends Model
     return [
       'created_at' => 'datetime:Y-m-d',
       'updated_at' => 'datetime:Y-m-d',
+      'is_premium' => 'boolean',
+      'publish' => 'boolean',
     ];
   }
 }

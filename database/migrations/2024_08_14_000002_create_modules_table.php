@@ -14,6 +14,7 @@ return new class extends Migration
       $table->string('description');
       $table->string('course_id', length: 50);
       $table->boolean('is_premium')->default(false);
+      $table->boolean('publish')->default(false);
       $table->integer('order');
       $table->timestamps();
       $table->softDeletes();

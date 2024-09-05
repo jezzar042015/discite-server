@@ -45,13 +45,13 @@ class CourseController extends Controller
         'description' => $request->description,
         'level' => $request->level,
         'is_premium' => $request->is_premium,
+        'publish' => $request->publish,
         'author_id' => $request->author_id,
       ]);
-      
+
       return new CourseResource($course);
-    
     } catch (\Exception $e) {
-      
+
       return response()->json(['error' => $e->getMessage()], 500);
     }
   }

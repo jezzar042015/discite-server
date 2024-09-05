@@ -1,6 +1,9 @@
 <template>
     <div>
         Main Dashboard
+        <div>
+            <router-link :to="{ name: 'Courses' }">See Courses</router-link>
+        </div>
     </div>
 </template>
 

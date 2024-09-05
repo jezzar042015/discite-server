@@ -23,6 +23,7 @@ class LessonCollection extends JsonResourceCollection
           'exercises' => $lesson->exercises,
           'comments' => $lesson->comments,
           'is_premium' => $lesson->is_premium,
+          'publish' => $lesson->publish,
           'created_at' => $lesson->created_at->format('Y-m-d'),
           'updated_at' => $lesson->updated_at->format('Y-m-d'),
         ];

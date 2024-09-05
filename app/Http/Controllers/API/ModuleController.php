@@ -8,7 +8,6 @@ use App\Http\Requests\StoreModuleRequest;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Http\Resources\ModuleResource;
 use App\Http\Resources\ModuleCollection;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ModuleController extends Controller
 {
@@ -21,11 +20,11 @@ class ModuleController extends Controller
 
   public function show($id)
   {
+
     try {
       $module = Module::findOrFail($id);
+
       return new ModuleResource($module);
-    } catch (ModelNotFoundException $error) {
-      return response()->json(['error' => 'Module not found.'], 404);
     } catch (\Exception $error) {
       return response()->json(['error' => 'Server error', 'message' => $error->getMessage()], 500);
     }
@@ -38,19 +37,24 @@ class ModuleController extends Controller
     return new ModuleResource($createdModule);
   }
 
-  public function update(UpdateModuleRequest $request, Module $module)
+  public function update(UpdateModuleRequest $request, $id)
   {
-    $module->update(
-      [
+    try {
+      $module = Module::findOrFail($id);
+      $module->update([
         'title' => $request->title,
         'description' => $request->description,
         'course_id' => $request->course_id,
         'is_premium' => $request->is_premium,
+        'publish' => $request->publish,
         'order' => $request->order,
-      ]
-    );
+      ]);
 
-    return $module;
+      return new ModuleResource($module);
+      
+    } catch (\Exception $e) {
+      return response()->json(['error' => $e->getMessage()], 500);
+    }
   }
 
   public function destroy(Module $module)

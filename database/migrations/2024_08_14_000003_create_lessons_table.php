@@ -13,8 +13,9 @@ return new class extends Migration
       $table->string('title', length: 100);
       $table->text('content');
       $table->string('module_id', length: 50);
-      $table->string('author_id', length: 50);
+      $table->string('author_id', length: 50)->nullable();
       $table->boolean('is_premium')->default(false);
+      $table->boolean('publish')->default(false);
       $table->integer('order');
       $table->timestamps();
       $table->softDeletes();

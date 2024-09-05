@@ -17,6 +17,7 @@ class ModuleCollection extends JsonResourceCollection
           'description' => $module->description,
           'course_id' => $module->course_id,
           'is_premium' => $module->is_premium,
+          'publish' => $module->publish,
           'order' => $module->order,
           'course' => $module->course,
           'lessons' => $module->lessons,

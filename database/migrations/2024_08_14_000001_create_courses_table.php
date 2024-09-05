@@ -14,6 +14,7 @@ return new class extends Migration
       $table->string('description');
       $table->enum('level', ['BEGINNER', 'INTERMEDIATE', 'ADVANCED']);
       $table->boolean('is_premium')->default(false);
+      $table->boolean('publish')->default(false);
       $table->string('author_id', length: 50)->nullable();
       $table->timestamps();
       $table->softDeletes();
