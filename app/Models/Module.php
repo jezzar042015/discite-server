@@ -31,7 +31,7 @@ class Module extends Model
 
   public function lessons(): HasMany
   {
-    return $this->hasMany(Lesson::class, 'module_id');
+    return $this->hasMany(Lesson::class, 'module_id')->orderBy('order','asc');
   }
 
   public function casts(): array

@@ -1,20 +1,28 @@
 <template>
-    <div>
-        Available Courses
+    <div class="p-4">
+        <div class="flex justify-between items-center">
+            <div class="font-bold text-2xl">
+                Available Courses
+            </div>
 
-        <div class="flex flex-col gap-4">
-            <router-link :to="{ name: 'Dashboard' }">Back to Dashboard</router-link>
+            <div class="flex flex-col gap-4">
+                <router-link :to="{ name: 'Dashboard' }">Back to Dashboard</router-link>
+            </div>
         </div>
 
         <div class="flex flex-col p-4 gap-2">
-            <div v-for="course in courses" :key="course.id">
-                <div class="text-lg">
+            <div v-for="course in courses" :key="course.id" class="p-2 border border-slate-800 rounded-sm">
+                <div class="font-semibold">
+                    {{ course.title }}
+                </div>
+                <div class="text-sm">
+                    {{ course.description }}
+                </div>
+                <div class="text-xs">
                     <router-link :to="`/courses/${course.id}/modules`">
-                        {{ course.title }}
+                        See Course {{ course.modules_count }} Modules
                     </router-link>
                 </div>
-                <div class="text-sm">{{ course.description }}</div>
-                <div class="text-sm">Modules: {{ course.modules_count }}</div>
             </div>
         </div>
 

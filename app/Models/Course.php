@@ -30,7 +30,7 @@ class Course extends Model
 
   public function modules(): HasMany
   {
-    return $this->hasMany(Module::class, 'course_id');
+    return $this->hasMany(Module::class, 'course_id')->orderBy('order', 'asc');
   }
 
   public function getStudentsCountAttribute()

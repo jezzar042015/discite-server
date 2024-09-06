@@ -7,29 +7,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('spa');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/courses', function () {
-    return view('spa');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/courses/{id}/modules', function () {
-    return view('spa');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/modules/{id}/lessons', function () {
-    return view('spa');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/lessons/{id}', function () {
-    return view('spa');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/lessons/{id}/exercises', function () {
-    return view('spa');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('/dashboard', 'spa')->name('dashboard');
+    Route::view('/courses', 'spa')->name('courses');
+    Route::view('/courses/{id}/modules', 'spa')->name('course.modules');
+    Route::view('/modules/{id}/lessons', 'spa')->name('module.lessons');
+    Route::view('/lessons/{id}', 'spa')->name('lesson');
+    Route::view('/lessons/{id}/exercises', 'spa')->name('lesson.exercises');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
