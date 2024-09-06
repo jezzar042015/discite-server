@@ -1,11 +1,12 @@
 import { APILessonArrayItem } from "@/types/lesson";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 export const useLessonsStore = defineStore('lessons', () => {
 
     const lessons = ref<APILessonArrayItem[]>([])
     const module_id = ref<string | null>(null)
+    const active_id = ref<string | null>(null)
 
     const fetchByModule = async (id: string) => {
         module_id.value = id;
@@ -27,9 +28,16 @@ export const useLessonsStore = defineStore('lessons', () => {
         }
     }
 
+    const selected = computed(() => {
+        if (!active_id.value) {
+            return null
+        }
+        return lessons.value.find(f => f.id == active_id.value)
+    })
+
     return {
-        lessons,
-        module_id,
+        lessons, selected,
+        active_id, module_id,
         fetchByModule
     }
 })

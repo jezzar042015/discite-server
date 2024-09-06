@@ -14,7 +14,7 @@
         <div class="flex flex-col gap-4 mt-3">
 
             <div class="flex flex-col p-4 gap-2">
-                <div v-for="module in modules" :key="module.id" class="p-2 border border-slate-800 rounded-sm">
+                <div v-for="module in moduleStore.modules" :key="module.id" class="p-2 border border-slate-800 rounded-sm">
                     <div class="text-xs">
                         MODULE {{ module.order }}
                     </div>
@@ -44,7 +44,6 @@
     import { useRoute } from 'vue-router';
 
     const moduleStore = useModulesStore()
-    const modules = moduleStore.modules
 
     onMounted(async () => {
         const route = useRoute()

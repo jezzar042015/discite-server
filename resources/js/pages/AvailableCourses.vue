@@ -11,7 +11,7 @@
         </div>
 
         <div class="flex flex-col p-4 gap-2">
-            <div v-for="course in courses" :key="course.id" class="p-2 border border-slate-800 rounded-sm">
+            <div v-for="course in courseStore.courses" :key="course.id" class="p-2 border border-slate-800 rounded-sm">
                 <div class="font-semibold">
                     {{ course.title }}
                 </div>
@@ -31,15 +31,14 @@
 
 <script setup lang="ts">
     import { useCoursesStore } from '@/stores/courses';
-    import { APICourseArrayItem } from '@/types/course';
     import { onMounted } from 'vue';
 
     const courseStore = useCoursesStore()
-    const courses = courseStore.courses as APICourseArrayItem[]
 
     onMounted(async () => {
         await courseStore.fetchCourses()
     })
+
 </script>
 
 <style scoped></style>

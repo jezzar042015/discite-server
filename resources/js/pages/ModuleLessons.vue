@@ -11,7 +11,7 @@
         </div>
 
         <div class="flex flex-col p-4 gap-2">
-            <div v-for="lesson in lessons" :key="lesson.id" class="p-2 border border-slate-800 rounded-sm">
+            <div v-for="lesson in lessonStore.lessons" :key="lesson.id" class="p-2 border border-slate-800 rounded-sm">
                 <div class="text-xs">
                     Lesson {{ lesson.order }}
                 </div>
@@ -39,7 +39,6 @@
 
     const lessonStore = useLessonsStore()
     const moduleStore = useModulesStore()
-    const lessons = lessonStore.lessons
 
     onMounted(() => {
         const route = useRoute()
