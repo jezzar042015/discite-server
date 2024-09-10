@@ -1,7 +1,7 @@
 <template>
-    <div class="p-4">
-        <div class="flex justify-between items-center">
-            <div class="font-bold text-2xl">
+    <div class="p-4 bg-gray-50">
+        <div class="p-4 flex justify-between items-center">
+            <div class="font-extrabold text-2xl text-sky-400">
                 Module Lessons
             </div>
 
@@ -10,23 +10,27 @@
             </div>
         </div>
 
-        <div class="flex flex-col p-4 gap-2">
-            <div v-for="lesson in lessonStore.lessons" :key="lesson.id" class="p-2 border border-slate-800 rounded-sm">
-                <div class="text-xs">
-                    Lesson {{ lesson.order }}
-                </div>
+        <div class="flex flex-col p-6 gap-4" v-if="!loading">
+            <div v-for="(lesson, i) in lessonStore.lessons" :key="lesson.id"
+                class="bg-white p-4 rounded-md shadow hover:shadow-lg duration-300 ease-in-out hover:scale-105">
+                <router-link :to="`/lessons/${lesson.id}`">
+                    <div class="text-xs">
+                        Lesson {{ i + 1 }}
+                    </div>
 
-                <div class="font-semibold">
-                    {{ lesson.title }}
-                </div>
+                    <div class="font-semibold text-sky-400">
+                        {{ lesson.title }}
+                    </div>
 
-                <div class="text-xs">
-                    <router-link :to="`/lessons/${lesson.id}`">
+                    <div class="text-xs">
+
                         See Content
-                    </router-link>
-                </div>
+                    </div>
+                </router-link>
             </div>
-
+        </div>
+        <div v-else class="h-full p-20">
+            <CircleLoader />
         </div>
     </div>
 </template>
@@ -34,17 +38,19 @@
 <script setup lang="ts">
     import { useLessonsStore } from '@/stores/lessons';
     import { useModulesStore } from '@/stores/modules';
-    import { onMounted } from 'vue';
+    import { onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
+    import CircleLoader from '@/components/loaders/CircleWave.vue'
 
+    const loading = ref(false)
     const lessonStore = useLessonsStore()
     const moduleStore = useModulesStore()
 
-    onMounted(() => {
+    onMounted(async () => {
+        loading.value = true
         const route = useRoute()
         const moduleId = route.params.id.toString()
-        lessonStore.fetchByModule(moduleId)
+        await lessonStore.fetchByModule(moduleId)
+        loading.value = false
     })
 </script>
-
-<style scoped></style>

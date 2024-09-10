@@ -3,6 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "dev-host": "vite --host",
         "build": "vite build"
     },
     "devDependencies": {
@@ -19,7 +20,11 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@primevue/themes": "^4.0.6",
         "pinia": "^2.2.2",
+        "primeicons": "^7.0.0",
+        "primevue": "^4.0.6",
+        "quill": "^2.0.2",
         "vue": "^3.5.1",
         "vue-router": "^4.4.3"
     }

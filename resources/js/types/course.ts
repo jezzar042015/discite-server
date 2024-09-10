@@ -16,3 +16,12 @@ export interface APICourseArrayItem {
     created_at: string
     updated_at: string
 }
+
+export interface APICourseRequest {
+    id?: string
+    title: string
+    description: string
+    level: CourseLevel | ''
+    is_premium: boolean
+    publish: boolean
+}

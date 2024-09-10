@@ -6,4 +6,9 @@
 
 </script>
 
-<style></style>
+<style>
+  html
+  {
+    font-size: 16px;
+  }
+</style>

@@ -14,7 +14,7 @@ class CourseController extends Controller
   public function index()
   {
     return new CourseCollection(
-      Course::all()
+      Course::orderBy('id')->get()
     );
   }
 
