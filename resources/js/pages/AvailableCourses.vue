@@ -1,23 +1,28 @@
 <template>
-    <div class="p-4 bg-gray-100 overflow-y-hidden">
-        <div class="fixed left-0 top-0 shadow-lg w-full bg-white">
-            <div class="py-3 px-8 flex justify-between items-center">
-                <div class="flex items-center gap-8">
-                    <div class="font-extrabold text-2xl text-sky-700 uppercase">
-                        Courses
+    <div class="p-2 md:p-4 bg-gray-100 overflow-y-hidden dark:bg-gray-800 flex flex-col items-center">
+
+        <!-- fixed header -->
+        <div class="fixed left-0 top-0 shadow-lg w-full bg-white dark:bg-gray-700">
+            <div class="m-auto flex w-full md:max-w-6xl">
+                <div class="py-3 px-5 flex justify-between items-center w-full md:min-w-full ">
+                    <div class="flex items-center gap-4">
+                        <div class="font-extrabold text-xl text-sky-700 uppercase dark:text-sky-400">
+                            Courses
+                        </div>
+                        <Button @click="openNewForm" style="font-size: .8rem; padding: 3px 8px; " severity="secondary"
+                            label="Create New" text raised />
+
                     </div>
-                    <Button @click="openNewForm" style="font-size: .8rem; padding: 3px 8px; " severity="secondary"
-                        label="Create New" text raised />
 
-                </div>
-
-                <div class="flex flex-col gap-4">
-                    <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
+                    <div class="flex flex-col gap-4">
+                        <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex flex-col p-6 gap-4 mt-10">
+        <!-- course items list -->
+        <div class="flex flex-col justify-center items-center md:py-6 md:px-16 md:max-w-6xl gap-4 mt-14 ">
             <template v-for="course in courseStore.courses" :key="course.id">
                 <CourseItem :course="course" @make-changes="makeChanges" />
             </template>
@@ -32,7 +37,7 @@
     import { onMounted, ref } from 'vue';
     import { APICourseArrayItem, APICourseRequest } from '@/types/course';
     import Button from 'primevue/button';
-    import CoureForm from '@/components/TheModal.vue'
+    import CoureForm from '@/components/CourseForm.vue'
     import CourseItem from '@/components/CourseItem.vue'
 
 

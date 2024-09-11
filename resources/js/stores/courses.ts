@@ -5,6 +5,7 @@ import { ref } from "vue";
 export const useCoursesStore = defineStore('courses', () => {
 
     const courses = ref<APICourseArrayItem[]>([]);
+    const selected = ref<APICourseArrayItem | null>(null);
 
     const levelOptions = ref([
         { code: 'BEGINNER', name: 'Beginner' },
@@ -64,7 +65,7 @@ export const useCoursesStore = defineStore('courses', () => {
     const insert = async (form: APICourseRequest) => {
 
         try {
-     
+
             const resp = await fetch(
                 `/api/courses/`, {
                 method: 'post',
@@ -89,10 +90,10 @@ export const useCoursesStore = defineStore('courses', () => {
                 console.error("An unknown error occured while attempting to create course");
             }
         }
-    } 
+    }
 
     return {
-        courses, levelOptions,
+        courses, levelOptions, selected,
         fetchCourses, update, insert
     };
 });

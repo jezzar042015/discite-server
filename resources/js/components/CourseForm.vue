@@ -1,10 +1,11 @@
 <template>
-    <teleport to='#app'>
-        <div v-if="visible" class="bg-black/80 fixed h-screen w-screen grid place-items-center p-10 z-10">
-            <div class="flex flex-col bg-white shadow h-3/4 min-w-full rounded-lg p-6">
+    <ModalContainer>
+        <div v-if="visible" class="bg-black/80 fixed h-screen w-screen grid place-items-center px-2 z-10 mt-0 dark:bg-black/75 dark:shadow-sm">
+            <div class="flex flex-col bg-white shadow h-4/5 md:h-5/6 md:w-3/4 rounded-lg p-6 dark:bg-gray-800 -mt-20">
                 <div class="h-6 font-extrabold text-md text-sky-400 uppercase">
                     {{ formTitle }}
                 </div>
+
                 <div class="flex-1 flex flex-col py-4 gap-10">
                     <div class="flex flex-col w-full gap-2">
                         <label class="uppercase text-xs" for="">Course Title</label>
@@ -36,7 +37,7 @@
                 </div>
             </div>
         </div>
-    </teleport>
+    </ModalContainer>
 </template>
 
 <script setup lang="ts">
@@ -48,6 +49,7 @@
     import Button from 'primevue/button';
     import { useCoursesStore } from '@/stores/courses';
     import { APICourseRequest, CourseLevel } from '@/types/course';
+    import ModalContainer from '@/layouts/ModalContainer.vue'
 
     const courseStore = useCoursesStore()
 
