@@ -1,3 +1,4 @@
+import { get, post, put } from "@/composables/server";
 import { APICourseArrayItem, APICourseRequest } from "@/types/course";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -14,82 +15,18 @@ export const useCoursesStore = defineStore('courses', () => {
     ]);
 
     const fetchCourses = async () => {
-
-        try {
-            const resp = await fetch('/api/courses/');
-            if (!resp.ok) {
-                throw new Error(`Response status: ${resp.status}`);
-            }
-            courses.value = (await resp.json()).data;
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            } else {
-                console.error("An unknown error occured");
-            }
-        }
+        const resp = await get('/api/courses/');
+        courses.value = (await resp?.json())?.data || [];
     }
 
     const update = async (form: APICourseRequest) => {
-
-        try {
-            const id = form.id;
-            delete form.id;
-
-            const resp = await fetch(
-                `/api/courses/${id}`, {
-                method: 'put',
-                body: JSON.stringify(form),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (resp.ok) {
-                await fetchCourses()
-            } else {
-                const errorData = await resp.json();
-                console.error(`Error ${resp.status}: ${errorData.message || 'Unknown error'}`);
-            }
-
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            } else {
-                console.error("An unknown error occured while attempting to update course");
-            }
-        }
+        await put(`/api/courses/${selected.value?.id}`, JSON.stringify(form));
+        await fetchCourses();
     }
 
     const insert = async (form: APICourseRequest) => {
-
-        try {
-
-            const resp = await fetch(
-                `/api/courses/`, {
-                method: 'post',
-                body: JSON.stringify(form),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (resp.ok) {
-                await fetchCourses()
-            } else {
-                const errorData = await resp.json();
-                console.error(`Error ${resp.status}: ${errorData.message || 'Unknown error'}`);
-            }
-
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            } else {
-                console.error("An unknown error occured while attempting to create course");
-            }
-        }
+        await post(`/api/courses/`, JSON.stringify(form));
+        await fetchCourses();
     }
 
     return {

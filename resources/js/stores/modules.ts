@@ -1,35 +1,36 @@
-import { APIModuleArrayItem } from "@/types/module";
+import { get, post, put } from "@/composables/server";
+import { APIModuleArrayItem, APIModuleRequest } from "@/types/module";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useCoursesStore } from "./courses";
+import { useRoute } from "vue-router";
 
 export const useModulesStore = defineStore('modules', () => {
 
     const modules = ref<APIModuleArrayItem[]>([]);
-    const course_id = ref<string | null>(null)
+    const selected = ref<APIModuleArrayItem | null>(null);
+    const courseStore = useCoursesStore();
+    const router = useRoute()
 
-    const fetchModules = async (id: string) => {
+    const fetchModules = async () => {
+        const course_id = courseStore.selected ? courseStore.selected.id : router.params.id.toString();
+        const url = `/api/courses/${course_id}`
+        const resp = await get(url);
+        modules.value = (await resp?.json())?.data?.modules || [];
+    }
 
-        course_id.value = id;
+    const update = async (form: APIModuleRequest) => {
+        await put(`/api/modules/${selected.value?.id}`, JSON.stringify(form));
+        await fetchModules();
+    }
 
-        try {
-            const resp = await fetch(`/api/courses/${course_id.value}`);
-            if (!resp.ok) {
-                throw new Error(`Response status: ${resp.status}`);
-            }
-            modules.value = (await resp.json()).data.modules;
-
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            } else {
-                console.error("An unknown error occured");
-            }
-        }
+    const insert = async (form: APIModuleRequest) => {
+        await post(`/api/modules`, JSON.stringify(form));
+        await fetchModules();
     }
 
     return {
-        modules,
-        course_id,
-        fetchModules
+        modules, selected,
+        fetchModules, update, insert
     }
 })

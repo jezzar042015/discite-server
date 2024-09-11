@@ -50,16 +50,20 @@
 </template>
 
 <script setup lang="ts">
+    import { useModulesStore } from '@/stores/modules';
     import { APIModuleArrayItem } from '@/types/module';
 
-    interface Props {
+    const { module, i } = defineProps<{
         module: APIModuleArrayItem,
         i: number
-    }
-    const props = defineProps<Props>()
+    }>();
+
+    const moduleStore = useModulesStore()
     const emits = defineEmits(['make-changes'])
+
     const openUpdate = async () => {
-        emits('make-changes', props.module)
+        moduleStore.selected = module;
+        emits('make-changes', module)
     }
 
 </script>

@@ -1,6 +1,6 @@
 
 
-export type CourseLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'
+export type CourseLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | ''
 
 export interface APICourseArrayItem {
     id: string
@@ -18,10 +18,9 @@ export interface APICourseArrayItem {
 }
 
 export interface APICourseRequest {
-    id?: string
     title: string
     description: string
-    level: CourseLevel | ''
+    level: CourseLevel
     is_premium: boolean
     publish: boolean
 }

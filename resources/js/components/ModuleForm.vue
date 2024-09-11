@@ -1,13 +1,13 @@
 <template>
     <ModalContainer>
         <div v-if="visible"
-            class="bg-black/80 fixed h-screen w-screen grid place-items-center px-2 z-10 mt-0 dark:bg-black/75 dark:shadow-sm">
+            class="bg-black/80 fixed h-screen w-screen grid place-items-center px-2 z-20 mt-0 dark:bg-black/75 dark:shadow-sm">
             <div class="flex flex-col bg-white shadow h-4/5 md:h-5/6 md:w-3/4 rounded-lg p-6 dark:bg-gray-800 -mt-20">
                 <div class="h-6 font-extrabold text-md text-sky-400 uppercase">
                     {{ formTitle }}
                 </div>
 
-                <div class="flex-1 flex flex-col py-4 gap-10">
+                <div class="flex-1 flex flex-col py-4 gap-4">
                     <div class="flex flex-col w-full gap-2">
                         <label class="uppercase text-xs" for="">Module Title</label>
                         <InputText type="text" v-model="data.title" />
@@ -15,7 +15,7 @@
 
                     <div class="flex flex-col w-full gap-2">
                         <label class="uppercase text-xs" for="description">Description</label>
-                        <Textarea id="description" v-model="data.description" fluid autoResize />
+                        <Textarea id="description" v-model="data.description" fluid autoResize rows="8" />
                     </div>
 
                     <div class="flex gap-10">
@@ -34,7 +34,6 @@
                     <Button @click="save" label="Save" text raised />
                     <Button @click="close" severity="secondary" label="Discard" text raised />
                 </div>
-
             </div>
         </div>
     </ModalContainer>
@@ -48,6 +47,7 @@
     import InputText from 'primevue/inputtext';
     import Textarea from 'primevue/textarea';
     import ToggleSwitch from 'primevue/toggleswitch';
+    import { useModulesStore } from '@/stores/modules';
 
 
     const { visible, mode, data, } = defineProps<{
@@ -55,15 +55,22 @@
         mode: 'new' | 'update',
         data: APIModuleRequest,
     }>();
+
     const emits = defineEmits(['close-me'])
+    const moduleStore = useModulesStore();
 
     const formTitle = computed(() => {
         return `${mode == 'new' ? 'New' : 'Update'} Module`
     })
 
     async function save() {
-        // alert(data)        
-        emits('close-me')
+        if (mode === 'update') {
+            await moduleStore.update(data);
+        } else {
+            await moduleStore.insert(data);
+        }
+        
+        emits('close-me');
     }
 
     async function close() {

@@ -1,6 +1,7 @@
 <template>
     <ModalContainer>
-        <div v-if="visible" class="bg-black/80 fixed h-screen w-screen grid place-items-center px-2 z-10 mt-0 dark:bg-black/75 dark:shadow-sm">
+        <div v-if="visible"
+            class="bg-black/80 fixed h-screen w-screen grid place-items-center px-2 z-20 mt-0 dark:bg-black/75 dark:shadow-sm">
             <div class="flex flex-col bg-white shadow h-4/5 md:h-5/6 md:w-3/4 rounded-lg p-6 dark:bg-gray-800 -mt-20">
                 <div class="h-6 font-extrabold text-md text-sky-400 uppercase">
                     {{ formTitle }}
@@ -53,30 +54,29 @@
 
     const courseStore = useCoursesStore()
 
-    const selectedLevel = ref<{ code: CourseLevel | '' , name: string } | undefined>({
+    const selectedLevel = ref<{ code: CourseLevel, name: string }>({
         code: '',
         name: '',
     });
 
     const emits = defineEmits(['close-me'])
-    const props = defineProps<{
+    const { visible, mode, data } = defineProps<{
         visible: boolean,
         mode: 'new' | 'update',
         data: APICourseRequest
     }>();
 
     const formTitle = computed(() => {
-        return `${props.mode == 'new' ? 'New' : 'Update'} Course`
+        return `${mode == 'new' ? 'New' : 'Update'} Course`
     })
 
     async function save() {
-        if (props.data.id) {
-            await courseStore.update(props.data);
-            emits('close-me');
+        if (mode === 'update') {
+            await courseStore.update(data);
         } else {
-            await courseStore.insert(props.data);
-            emits('close-me');
+            await courseStore.insert(data);
         }
+        emits('close-me');
     }
 
     function closeMe() {
@@ -84,15 +84,15 @@
     }
 
     function updateLevel() {
-        props.data.level = selectedLevel.value?.code ?? ''
+        data.level = selectedLevel.value?.code ?? ''
     }
 
     watch(
-        props.data,
+        () => data,
         () => {
-            if (!props.data.level) return
-            const level = courseStore.levelOptions.find(crs => crs.code == props.data.level)
-            if (level) selectedLevel.value = level
+            if (!data.level) return
+            const level = courseStore.levelOptions.find(crs => crs.code == data.level)
+            selectedLevel.value = level ? level : { code: '', name: '' }
         },
         {
             immediate: true
