@@ -5,10 +5,11 @@
         <div class="text-xs">
             Lesson {{ i + 1 }}
         </div>
-
-        <div class="font-semibold text-sky-400">
-            {{ lesson.title }}
-        </div>
+        <router-link :to="`/lessons/${lesson.id}`">
+            <div class="font-semibold text-sky-400">
+                {{ lesson.title }}
+            </div>
+        </router-link>
 
         <div class="text-sm">
             <p>{{ contentPreview }}</p>
@@ -16,7 +17,7 @@
 
         <router-link :to="`/lessons/${lesson.id}`">
             <div
-                class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 dark:bg-sky-400/15">
+                class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 dark:bg-sky-400/15 shadow">
                 <button>View Full Content</button>
             </div>
         </router-link>
@@ -33,7 +34,8 @@
     }>();
 
     const contentPreview = computed(() => {
-        return lesson.content.substring(0, 230) + '  ....'
+        const sanitized = lesson.content.replace(/<[^>]*>/g, ' ')
+        return sanitized.substring(0, 230) + '  ....'
     })
 
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col gap-3 bg-white p-4 rounded-md md:min-w-full shadow hover:shadow-lg dark:bg-gray-900 dark:shadow-md dark:shadow-black/40">
+        class="flex flex-col gap-1 bg-white/85 p-4 rounded-md md:min-w-full shadow hover:shadow-lg dark:bg-gray-900 dark:shadow-md dark:shadow-black/40">
         <div>
             <div class="text-xs">
                 MODULE {{ i + 1 }}
@@ -12,24 +12,28 @@
             {{ module.title }}
         </div>
 
-        <div class="w-fit flex gap-4 text-xs">
-            <div
-                class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-xl uppercase dark:bg-sky-400/15">
-                <i v-if="module.is_premium" class="pi pi-credit-card" style="font-size: .8rem;"></i>
-                <i v-else class="pi pi-unlock" style="font-size: .8rem;"></i>
-                {{ module.is_premium ? 'premium' : 'free' }} access
-            </div>
-
-            <div
-                class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-xl uppercase dark:bg-sky-400/15">
-                <i v-if="module.publish" class="pi pi-cloud" style="font-size: .8rem;"></i>
-                <i v-else class="pi pi-file" style="font-size: .8rem;"></i>
-                {{ module.publish ? 'published' : 'unpublished' }}
-            </div>
-        </div>
-
         <div class="text-sm">
             {{ module.description }}
+        </div>
+
+        <div class="flex-1 py-2 flex flex-col gap-2">
+            
+
+            <div class="w-fit flex gap-2 text-xs">
+                <div
+                    class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/40 rounded-xl uppercase dark:bg-sky-400/15">
+                    <i v-if="module.is_premium" class="pi pi-credit-card" style="font-size: .8rem;"></i>
+                    <i v-else class="pi pi-unlock" style="font-size: .8rem;"></i>
+                    {{ module.is_premium ? 'premium' : 'free' }} access
+                </div>
+
+                <div
+                    class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/40 rounded-xl uppercase dark:bg-sky-400/15">
+                    <i v-if="module.publish" class="pi pi-cloud" style="font-size: .8rem;"></i>
+                    <i v-else class="pi pi-file" style="font-size: .8rem;"></i>
+                    {{ module.publish ? 'published' : 'unpublished' }}
+                </div>
+            </div>
         </div>
 
         <div class="flex gap-4">

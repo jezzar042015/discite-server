@@ -11,7 +11,7 @@ return new class extends Migration
     Schema::create('courses', function (Blueprint $table) {
       $table->ulid('id')->primary();
       $table->string('title', length: 100);
-      $table->string('description');
+      $table->text('description');
       $table->enum('level', ['BEGINNER', 'INTERMEDIATE', 'ADVANCED']);
       $table->boolean('is_premium')->default(false);
       $table->boolean('publish')->default(false);

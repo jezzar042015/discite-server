@@ -16,6 +16,9 @@
             </template>
         </template>
 
+        <template #form>
+            <LessonForm :visible="formVisibility" :mode="'new'" :data="formData" @close-me="closeForm" />
+        </template>
     </Authenticated>
 </template>
 
@@ -26,17 +29,46 @@
     import Authenticated from '@/layouts/Authenticated.vue'
     import LessonItem from '@/components/LessonItem.vue'
     import Button from 'primevue/button';
+    import LessonForm from '@/components/LessonForm.vue';
+    import { APILessonRequest } from '@/types/lesson';
+    import { useModulesStore } from '@/stores/modules';
+    import { useUserStore } from '@/stores/user';
 
     const isFetching = ref(false)
     const lessonStore = useLessonsStore();
+    const moduleStore = useModulesStore();
+    const userStore = useUserStore()
+    const route = useRoute();
+
+
+    const formVisibility = ref(false)
+    const formData = ref<APILessonRequest>({
+        title: '',
+        content: '',
+        order: 0,
+        publish: false,
+        is_premium: false,
+        module_id: '',
+        author_id: '',
+    });
 
     const openNewForm = async () => {
-
+        formData.value.module_id = moduleStore.selected ? moduleStore.selected.id : route.params.id.toString()
+        formData.value.title = ''
+        formData.value.content = ''
+        formData.value.order = 0
+        formData.value.publish = false
+        formData.value.is_premium = false
+        formData.value.author_id = ''
+        formVisibility.value = true
     };
 
+    const closeForm = async () => {
+        formVisibility.value = false
+    }
+    
     onMounted(async () => {
         isFetching.value = true
-        const route = useRoute()
         const moduleId = route.params.id.toString()
         await lessonStore.fetchByModule(moduleId)
         isFetching.value = false

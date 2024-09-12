@@ -10,13 +10,17 @@ export const useModulesStore = defineStore('modules', () => {
     const modules = ref<APIModuleArrayItem[]>([]);
     const selected = ref<APIModuleArrayItem | null>(null);
     const courseStore = useCoursesStore();
+    const course_id = ref('')
     const router = useRoute()
 
     const fetchModules = async () => {
-        const course_id = courseStore.selected ? courseStore.selected.id : router.params.id.toString();
-        const url = `/api/courses/${course_id}`
+        course_id.value = courseStore.selected ? courseStore.selected.id : router.params.id.toString();
+        const url = `/api/courses/${course_id.value}`
         const resp = await get(url);
-        modules.value = (await resp?.json())?.data?.modules || [];
+        const course = (await resp?.json())?.data || null;
+        modules.value = course ? course.modules : []
+        courseStore.selected = course
+        // courseStore.selected = (await resp?.json())?.data) || null;
     }
 
     const update = async (form: APIModuleRequest) => {

@@ -33,11 +33,11 @@
         </div>
 
         <div class="flex gap-4">
-            <button @click="navigateModules" class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md dark:bg-sky-400/15 cursor-pointer">
+            <button @click="navigateModules" class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md dark:bg-sky-400/15 cursor-pointer shadow">
                 {{ modulesLink }}
             </button>
             <button @click="update"
-                class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 dark:bg-sky-400/15">
+                class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 dark:bg-sky-400/15 shadow">
                 Make Changes
             </button>
         </div>

@@ -13,7 +13,10 @@ class LessonController extends Controller
     public function modular($module_id)
     {
         try {
-            $lesson = Lesson::where('module_id', $module_id)->orderBy('order')->get();
+            $lesson = Lesson::where('module_id', $module_id)
+                ->orderBy('order', 'asc')
+                ->orderBy('created_at', 'asc')
+                ->get();
             return response()->json(['lessons' => $lesson]);
         } catch (\Exception $error) {
             return response()->json(['error' => 'Server error', 'message' => $error->getMessage()], 500);
