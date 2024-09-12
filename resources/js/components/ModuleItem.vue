@@ -8,7 +8,7 @@
         </div>
 
         <div class="font-semibold text-sky-700 flex gap-2 items-center dark:text-sky-500">
-            <i class="pi pi-sitemap" style="font-size: .8rem;"></i>
+            <!-- <i class="pi pi-sitemap" style="font-size: .8rem;"></i> -->
             {{ module.title }}
         </div>
 
@@ -38,14 +38,14 @@
 
         <div class="flex gap-4">
             <router-link :to="`/modules/${module.id}/lessons`">
-                <div class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-md">
+                <div class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 shadow">
                     <i class="pi pi-sitemap" style="font-size: .8rem;"></i>
                     See Lessons
                 </div>
             </router-link>
 
             <button @click="openUpdate"
-                class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300">
+                class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 shadow">
                 <i class="pi pi-pencil" style="font-size: .7rem;"></i>
                 Make Changes
             </button>

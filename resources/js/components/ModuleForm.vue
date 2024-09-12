@@ -35,7 +35,7 @@
 
         <template #foot>
             <div class="h-12 flex gap-3 p-1">
-                <Button @click="save" label="Save" raised />
+                <Button @click="save" label="Save" raised text severity="info"/>
                 <Button @click="closeMe" severity="secondary" label="Discard" raised />
             </div>
         </template>

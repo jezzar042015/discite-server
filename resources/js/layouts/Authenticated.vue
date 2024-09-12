@@ -1,37 +1,9 @@
 <template>
     <div
-        class="jtbg px-2 pb-6 md:p-4 bg-gray-100 min-h-screen overflow-y-auto dark:bg-gray-800 flex flex-col items-center">
+        class="jtbg relative px-2 pb-6 md:p-4 bg-gray-100 min-h-screen overflow-y-auto dark:bg-gray-800 flex flex-col items-center">
 
         <!-- navbar -->
-        <div class="fixed left-0 top-0 shadow-lg w-full bg-white/90 dark:bg-slate-900 z-10">
-            <div class="m-auto flex w-full md:max-w-6xl">
-                <div class="py-3 px-5 flex justify-between items-center w-full md:min-w-full text-sm">
-                    <div class="font-bold uppercase flex gap-0 items-center">
-                        <img class="h-7 -mt-1" src="./../assets/app-logo.png" alt="">
-                        <span>Discite</span>
-                    </div>
-
-                    <div class="flex flex-col gap-4">
-                        <div class="md:hidden">
-                            <i class="pi pi-bars text-black dark:text-white h-6"></i>
-                        </div>
-                        <div class="hidden md:flex">
-                            <ul class="flex gap-2 items-center">
-                                <li class="py-1 px-4">
-                                    <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
-                                </li>
-                                <li class="py-1 px-4 flex items-center gap-2 cursor-pointer ">
-                                    <span> Courses </span>
-                                    <i class="pi pi-angle-down text-black dark:text-white"></i>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        <NavBar />
         <!-- top margin spacer -->
         <div class="mt-14 md:mt-10 "></div>
 
@@ -55,6 +27,9 @@
 
 <script setup lang="ts">
     import CircleLoader from '@/components/loaders/CircleWave.vue'
+    import NavBar from '@/components/nav/NavBar.vue'
+    import { onMounted } from 'vue';
+    import { useCoursesStore } from '@/stores/courses';
 
     defineProps({
         isFetching: {
@@ -62,6 +37,11 @@
             default: false
         }
     });
+
+    const courseStore = useCoursesStore()
+    onMounted(async () => {
+        await courseStore.fetchCourses()
+    })
 </script>
 
 <style scoped>
