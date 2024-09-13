@@ -6,6 +6,10 @@ import Modules from '@/pages/CourseModules.vue'
 import Lessons from '@/pages/ModuleLessons.vue'
 import LessonContent from '@/pages/LessonContent.vue'
 import Exercises from '@/pages/LessonExercises.vue'
+import UsersList from '@/pages/UsersList.vue'
+import UserProfile from '@/pages/UserProfile.vue'
+
+import { canBrowseGuard, isAdminGuard } from './authGuards'
 
 const routes = [
     {
@@ -17,26 +21,41 @@ const routes = [
         path: '/courses/',
         name: 'Courses',
         component: Courses,
+        beforeEnter: canBrowseGuard,
     },
     {
         path: '/courses/:id/modules',
         name: 'Modules',
         component: Modules,
+        beforeEnter: canBrowseGuard,
     },
     {
         path: '/modules/:id/lessons',
         name: 'Lessons',
         component: Lessons,
+        beforeEnter: canBrowseGuard,
     },
     {
         path: '/lessons/:id',
         name: 'LessonContent',
         component: LessonContent,
-    },
+        beforeEnter: canBrowseGuard,    },
     {
         path: '/lessons/:id/exercises',
         name: 'Exercises',
         component: Exercises,
+        beforeEnter: canBrowseGuard,
+    },
+    {
+        path: '/users',
+        name: 'Users',
+        component: UsersList,
+        beforeEnter: isAdminGuard,
+    },
+    {
+        path: '/me',
+        name: 'Profile',
+        component: UserProfile,
     },
 ]
 

@@ -11,7 +11,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
+                <div v-if="auth.canBrowse" class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
                     <div class="bg-white dark:bg-gray-700 p-6 rounded-lg">
                         <router-link :to="{ name: 'Courses' }">View {{ courseStore.courses.length }}
                             Courses</router-link>
@@ -20,6 +20,10 @@
                         <h3>Write interactively!</h3>
                         <p></p>
                     </div>
+                </div>
+
+                <div v-else>
+                    Hmmm! Contents in this site are for Admin company access only.
                 </div>
             </div>
         </template>
@@ -30,7 +34,9 @@
     import Authenticated from '@/layouts/Authenticated.vue';
     import { useAppStore } from '@/stores/app';
     import { useCoursesStore } from '@/stores/courses';
+    import { useUserStore } from '@/stores/user';
 
     const app = useAppStore()
+    const auth = useUserStore()
     const courseStore = useCoursesStore()
 </script>

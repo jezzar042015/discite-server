@@ -15,8 +15,8 @@
             <slot name="items-list"></slot>
         </div>
 
-        <div v-else class="min-h-screen min-w-80 h-full p-20 grid place-items-center">
-            <CircleLoader class="-mt-32" />
+        <div v-else class="flex flex-col flex-1 items-center justify-center min-w-80 min-h-full p-20 ">
+            <CircleLoader class="" />
         </div>
 
         <slot name="form">
@@ -26,10 +26,11 @@
 </template>
 
 <script setup lang="ts">
-    import CircleLoader from '@/components/loaders/CircleWave.vue'
+    import CircleLoader from '@/assets/CircleWave.vue'
     import NavBar from '@/components/nav/NavBar.vue'
     import { onMounted } from 'vue';
     import { useCoursesStore } from '@/stores/courses';
+    import { useUserStore } from '@/stores/user';
 
     defineProps({
         isFetching: {
@@ -39,7 +40,10 @@
     });
 
     const courseStore = useCoursesStore()
+    const authStore = useUserStore()
+
     onMounted(async () => {
+        await authStore.getCurrent()
         await courseStore.fetchCourses()
     })
 </script>
@@ -49,7 +53,7 @@
     {
         .jtbg
         {
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%232C6A93"><path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path><path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path><path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path><path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path></svg>');
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%233B4D56"><path d="M0 1v99c134.3 0 153.7-99 296-99H0Z" opacity=".5"></path><path d="M1000 4v86C833.3 90 833.3 3.6 666.7 3.6S500 90 333.3 90 166.7 4 0 4h1000Z" opacity=".5"></path><path d="M617 1v86C372 119 384 1 196 1h421Z" opacity=".5"></path><path d="M1000 0H0v52C62.5 28 125 4 250 4c250 0 250 96 500 96 125 0 187.5-24 250-48V0Z"></path></svg>');
             background-attachment: fixed;
             background-size: cover;
             background-blend-mode: color-burn;

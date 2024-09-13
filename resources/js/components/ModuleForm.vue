@@ -11,12 +11,12 @@
 
             <div class="flex flex-col w-full gap-2">
                 <label class="uppercase text-xs" for="">Module Title</label>
-                <InputText type="text" v-model="data.title" />
+                <InputText type="text" v-model="data.title" variant="filled"/>
             </div>
 
             <div class="flex flex-col w-full gap-2">
                 <label class="uppercase text-xs" for="description">Description</label>
-                <Textarea id="description" v-model="data.description" fluid autoResize rows="8" />
+                <Textarea id="description" v-model="data.description" fluid autoResize rows="8" variant="filled"/>
             </div>
 
             <div class="flex gap-10">

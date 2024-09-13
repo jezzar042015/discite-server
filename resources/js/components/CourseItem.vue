@@ -8,24 +8,24 @@
 
         <!-- course badges -->
         <div class="w-fit flex gap-2 flex-wrap">
-            <div class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-xl dark:bg-sky-400/15">
-                <i class="pi pi-gauge" style="font-size: .8rem;"></i>
-                {{ course.level }}
-            </div>
 
-            <div
-                class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-xl uppercase dark:bg-sky-400/15">
+            <ChipHolder>
+                <i class="pi pi-gauge" style="font-size: .8rem;"></i>
+                <span>{{ course.level }}</span>
+            </ChipHolder>
+
+            <ChipHolder>
                 <i v-if="course.is_premium" class="pi pi-credit-card" style="font-size: .8rem;"></i>
                 <i v-else class="pi pi-unlock" style="font-size: .8rem;"></i>
-                {{ course.is_premium ? 'premium' : 'free' }} access
-            </div>
+                <span class="uppercase"> {{ course.is_premium ? 'premium' : 'free' }} access</span>
+            </ChipHolder>
 
-            <div
-                class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-xl uppercase dark:bg-sky-400/15">
+            <ChipHolder>
                 <i v-if="course.publish" class="pi pi-cloud" style="font-size: .8rem;"></i>
                 <i v-else class="pi pi-file" style="font-size: .8rem;"></i>
-                {{ course.publish ? 'published' : 'unpublished' }}
-            </div>
+                <span class="uppercase">{{ course.publish ? 'published' : 'unpublished' }}</span>
+            </ChipHolder>
+            
         </div>
 
         <div class="text-sm">
@@ -33,7 +33,8 @@
         </div>
 
         <div class="flex gap-4">
-            <button @click="navigateModules" class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md dark:bg-sky-400/15 cursor-pointer shadow">
+            <button @click="navigateModules"
+                class="inline text-xs py-1 px-3 bg-sky-400/10 rounded-md dark:bg-sky-400/15 cursor-pointer shadow">
                 {{ modulesLink }}
             </button>
             <button @click="update"
@@ -50,6 +51,8 @@
     import { useCoursesStore } from '@/stores/courses';
     import { computed } from 'vue';
     import { useRouter } from 'vue-router';
+    import ChipHolder from '@/components/ChipHolder.vue'
+
 
     const { course } = defineProps<{ course: APICourseArrayItem }>();
     const emits = defineEmits(['make-changes'])

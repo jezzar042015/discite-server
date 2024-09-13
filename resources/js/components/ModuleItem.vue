@@ -17,28 +17,26 @@
         </div>
 
         <div class="flex-1 py-2 flex flex-col gap-2">
-            
 
             <div class="w-fit flex gap-2 text-xs">
-                <div
-                    class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/40 rounded-xl uppercase dark:bg-sky-400/15">
+                <ChipHolder>
                     <i v-if="module.is_premium" class="pi pi-credit-card" style="font-size: .8rem;"></i>
                     <i v-else class="pi pi-unlock" style="font-size: .8rem;"></i>
-                    {{ module.is_premium ? 'premium' : 'free' }} access
-                </div>
+                    <span class="uppercase"> {{ module.is_premium ? 'premium' : 'free' }} access</span>
+                </ChipHolder>
 
-                <div
-                    class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/40 rounded-xl uppercase dark:bg-sky-400/15">
+                <ChipHolder>
                     <i v-if="module.publish" class="pi pi-cloud" style="font-size: .8rem;"></i>
                     <i v-else class="pi pi-file" style="font-size: .8rem;"></i>
-                    {{ module.publish ? 'published' : 'unpublished' }}
-                </div>
+                    <span class="uppercase">{{ module.publish ? 'published' : 'unpublished' }}</span>
+                </ChipHolder>
             </div>
         </div>
 
         <div class="flex gap-4">
             <router-link :to="`/modules/${module.id}/lessons`">
-                <div class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 shadow">
+                <div
+                    class="flex gap-2 items-center text-xs py-1 px-3 bg-sky-400/10 rounded-md hover:bg-sky-400/30 ease-out duration-300 shadow">
                     <i class="pi pi-sitemap" style="font-size: .8rem;"></i>
                     See Lessons
                 </div>
@@ -56,6 +54,8 @@
 <script setup lang="ts">
     import { useModulesStore } from '@/stores/modules';
     import { APIModuleArrayItem } from '@/types/module';
+    import ChipHolder from './ChipHolder.vue';
+
 
     const { module, i } = defineProps<{
         module: APIModuleArrayItem,

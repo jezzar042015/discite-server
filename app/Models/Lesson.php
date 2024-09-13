@@ -17,6 +17,7 @@ class Lesson extends Model
     'id',
     'title',
     'content',
+    'overview',
     'module_id',
     'author_id',
     'order',

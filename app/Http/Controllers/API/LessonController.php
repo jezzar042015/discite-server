@@ -47,6 +47,7 @@ class LessonController extends Controller
             $lesson->update([
                 "title" => $request->title,
                 "content" => $request->content,
+                "overview" => $request->overview,
                 "module_id" => $request->module_id,
                 "is_premium" => $request->is_premium,
                 "order" => $request->order,

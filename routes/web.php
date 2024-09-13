@@ -14,6 +14,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/modules/{id}/lessons', 'spa')->name('module.lessons');
     Route::view('/lessons/{id}', 'spa')->name('lesson');
     Route::view('/lessons/{id}/exercises', 'spa')->name('lesson.exercises');
+    Route::view('/users', 'spa')->name('users');
+    Route::view('/me', 'spa');
 });
 
 Route::middleware('auth')->group(function () {

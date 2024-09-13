@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'data' => User::all()
+            'data' => User::orderBy('name')->get()
         ]);
     }
 

@@ -14,13 +14,15 @@ export const useModulesStore = defineStore('modules', () => {
     const router = useRoute()
 
     const fetchModules = async () => {
-        course_id.value = courseStore.selected ? courseStore.selected.id : router.params.id.toString();
         const url = `/api/courses/${course_id.value}`
         const resp = await get(url);
         const course = (await resp?.json())?.data || null;
         modules.value = course ? course.modules : []
         courseStore.selected = course
-        // courseStore.selected = (await resp?.json())?.data) || null;
+    }
+
+    const setParentId = async () => {
+        course_id.value = courseStore.selected ? courseStore.selected.id : router.params.id.toString();
     }
 
     const update = async (form: APIModuleRequest) => {
@@ -34,7 +36,7 @@ export const useModulesStore = defineStore('modules', () => {
     }
 
     return {
-        modules, selected,
-        fetchModules, update, insert
+        modules, selected, course_id,
+        setParentId, fetchModules, update, insert
     }
 })

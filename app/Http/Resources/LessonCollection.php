@@ -15,6 +15,7 @@ class LessonCollection extends JsonResourceCollection
           'id' => $lesson->id,
           'title' => $lesson->title,
           'content' => $lesson->content,
+          'overview'=> $lesson->overview,
           'module_id' => $lesson->module_id,
           'author_id' => $lesson->author_id,
           'order' => $lesson->order,

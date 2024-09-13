@@ -11,6 +11,7 @@ return new class extends Migration
     Schema::create('lessons', function (Blueprint $table) {
       $table->ulid('id')->primary();
       $table->string('title', length: 100);
+      $table->text('overview');
       $table->text('content');
       $table->string('module_id', length: 50);
       $table->string('author_id', length: 50)->nullable();
