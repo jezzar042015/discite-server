@@ -17,7 +17,7 @@
 <style scoped>
     :deep(a)
     {
-        background-color: rgba(0, 128, 128, 0.164);
+        background-color: rgba(0, 128, 128, 0.151);
         padding: .1em .2em;
         border-radius: .2em;
         transition: ease-in-out .300s;
@@ -25,12 +25,12 @@
 
     :deep(a:hover)
     {
-        background-color: rgba(0, 128, 128, 0.356);
+        background-color: rgb(0, 128, 128);
     }
 
     :deep(u)
     {
-        color: teal;
+        color: rgb(0, 156, 156);
         text-underline-position: below;
         text-underline-offset: .3em;
         text-decoration-style: dotted;
@@ -38,14 +38,14 @@
 
     :deep(b)
     {
-        color: rgb(3, 155, 243);
+        color: rgb(0, 156, 156);
     }
 
     @media (prefers-color-scheme: dark)
     {
         :deep(a)
         {
-            background-color: rgba(107, 4, 4, 0.781);
+            background-color: rgb(0, 128, 128);;
         }
     }
 </style>

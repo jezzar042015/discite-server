@@ -1,5 +1,5 @@
 <template>
-    
+
     <template v-if="block.data.level == 1">
         <h1 class="editor-js" v-html="block.data.text"></h1>
     </template>
@@ -31,37 +31,51 @@
     const { block } = defineProps<{
         block: OutputBlockData
     }>();
-    
+
 </script>
 
 <style scoped>
-    h1 {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+    {
         font-weight: 600;
-        font-size: 1.5em;
+        color: rgb(0, 172, 172);
+        padding: .2em 0em;
     }
 
-    h2 {
-        font-weight: 600;
+    h1
+    {
+        font-size: 1.45em;
+        line-height: 1.1;
+    }
+
+    h2
+    {
         font-size: 1.4em;
     }
 
-    h3 {
-        font-weight: 600;
+    h3
+    {
         font-size: 1.3em;
     }
 
-    h4 {
-        font-weight: 600;
+    h4
+    {
         font-size: 1.2em;
     }
 
-    h5 {
-        font-weight: 600;
+    h5
+    {
         font-size: 1.1em;
     }
 
-    h6 {
-        font-weight: 600;
+    h6
+    {
         font-size: 1.05em;
     }
 </style>
