@@ -11,18 +11,17 @@
                     </div>
                 </div>
 
-                <div v-if="auth.canBrowse" class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4">
-                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg">
-                        <router-link :to="{ name: 'Courses' }">View {{ courseStore.courses.length }}
-                            Courses</router-link>
-                    </div>
-                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg">
-                        <h3>Write interactively!</h3>
-                        <p></p>
-                    </div>
+                <div v-if="auth.canBrowse" class="w-full grid grid-cols-1 grid-rows-2 gap-4">
+                    <router-link :to="{ name: 'Courses' }">
+                        <div class="flex gap-4 items-center bg-white dark:bg-gray-700 p-6 rounded-lg">
+                            <i class="pi pi-book"></i>
+                            Navigate Courses
+                        </div>
+                    </router-link>
+
                 </div>
 
-                <div v-else>
+                <div class="text-center" v-else>
                     Hmmm! Contents in this site are for Admin company access only.
                 </div>
             </div>

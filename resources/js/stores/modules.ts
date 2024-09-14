@@ -21,6 +21,13 @@ export const useModulesStore = defineStore('modules', () => {
         courseStore.selected = course
     }
 
+    const getModule = async(id:string) => {
+        const url = `/api/modules/${id}`
+        const resp = await get(url);
+        const json = (await resp?.json())?.data || {}
+        selected.value = json ?? null
+    }
+
     const setParentId = async () => {
         course_id.value = courseStore.selected ? courseStore.selected.id : router.params.id.toString();
     }
@@ -37,6 +44,6 @@ export const useModulesStore = defineStore('modules', () => {
 
     return {
         modules, selected, course_id,
-        setParentId, fetchModules, update, insert
+        setParentId, fetchModules, update, insert, getModule
     }
 })

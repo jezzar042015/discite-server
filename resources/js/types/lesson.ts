@@ -1,8 +1,11 @@
+import { OutputData } from "@editorjs/editorjs"
+
 export interface APILessonArrayItem {
     id: string
     author_id: string | null
     title: string
-    content: string
+    content: OutputData | null
+    overview: string
     module_id: string
     is_premium: boolean
     publish: boolean
@@ -15,7 +18,8 @@ export interface APILessonArrayItem {
 export interface APILessonRequest {
     author_id: string | null
     title: string
-    content: string
+    content: OutputData | null
+    overview: string
     module_id: string
     is_premium: boolean
     publish: boolean

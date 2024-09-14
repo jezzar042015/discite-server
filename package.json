@@ -20,6 +20,16 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@editorjs/checklist": "^1.6.0",
+        "@editorjs/editorjs": "^2.30.5",
+        "@editorjs/header": "^2.8.7",
+        "@editorjs/list": "^1.10.0",
+        "@editorjs/nested-list": "^1.4.3",
+        "@editorjs/paragraph": "^2.11.6",
+        "@editorjs/quote": "^2.7.2",
+        "@editorjs/table": "^2.4.1",
+        "@editorjs/text-variant-tune": "^1.0.3",
+        "@editorjs/underline": "^1.1.0",
         "@primevue/themes": "^4.0.6",
         "@vueuse/core": "^11.0.3",
         "pinia": "^2.2.2",

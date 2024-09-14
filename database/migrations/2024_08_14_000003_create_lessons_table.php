@@ -12,7 +12,7 @@ return new class extends Migration
       $table->ulid('id')->primary();
       $table->string('title', length: 100);
       $table->text('overview');
-      $table->text('content');
+      $table->json('content')->nullable();
       $table->string('module_id', length: 50);
       $table->string('author_id', length: 50)->nullable();
       $table->boolean('is_premium')->default(false);

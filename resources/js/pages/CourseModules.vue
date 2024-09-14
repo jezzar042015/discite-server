@@ -127,7 +127,6 @@
     const fetchModules = async () => {
         isFetching.value = true;
         await moduleStore.fetchModules();
-        if (noModules.value) await openNewForm()
         isFetching.value = false;
     }
 

@@ -54,7 +54,6 @@ export async function put(url:string, body: string) {
 
 export async function post(url:string, body: string) {
     retriveToken();
-    console.log(server.token);
     try {
         const resp = await fetch(url, {
             method: 'post',

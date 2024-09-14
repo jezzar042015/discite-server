@@ -11,16 +11,16 @@
             
                 <div class="flex flex-col w-full gap-2">
                     <label class="uppercase text-xs" for="">Title</label>
-                    <InputText type="text" v-model="data.title" />
+                    <InputText type="text" v-model="data.title" variant="filled"/>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <label class="uppercase text-xs" for="">Difficulty Level</label>
                     <Select v-model="selectedLevel" :options="courseStore.levelOptions" optionLabel="name"
-                        placeholder="Select.." class="w-full md:w-56" @change="updateLevel" />
+                        placeholder="Select.." class="w-full md:w-56" @change="updateLevel" variant="filled"/>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <label class="uppercase text-xs" for="description">Description</label>
-                    <Textarea id="description" v-model="data.description" fluid autoResize />
+                    <Textarea id="description" v-model="data.description" fluid autoResize variant="filled"/>
                 </div>
                 <div class="flex gap-10">
                     <div class="flex items-center gap-4">

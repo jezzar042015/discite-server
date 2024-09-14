@@ -2,11 +2,15 @@
     <Authenticated :is-fetching="isFetching">
 
         <template #items-list>
-            <div class="flex flex-col gap-4 min-h-screen p-8 md:p-10 rounded-md bg-white dark:bg-gray-800 -mt-2">
+            <div v-if="!editorVisibility" class="flex flex-col w-full gap-4 min-h-screen p-8 md:p-10 rounded-md bg-white dark:bg-gray-800 -mt-2">
                 <div class="">
                     <span class="text-xs text-gray-500 dark:text-gray-200">LESSON</span>
                     <p class="font-bold text-xl text-sky-400">
                         {{ lessonStore.selected?.title }}
+                    </p>
+                    <span class="text-xs text-gray-500 dark:text-gray-200">OVERVIEW: </span>
+                    <p>
+                        {{ lessonStore.selected?.overview }}
                     </p>
                 </div>
 
@@ -30,17 +34,13 @@
                     <span class="text-xs text-gray-500 dark:text-gray-200">CONTENT</span>
                     <hr class="py-3">
 
-                    <div class="flex flex-col gap-3 my-2">
-                        <div v-for="par in paragraphs" :key="par" class="font-normal rounded-smx">
-                            <div class="content" v-html="par"></div>
-                            <!-- <div class="content">{{ par }}</div> -->
-
-                        </div>
-                    </div>
+                    <ContentRender :blocks="lessonStore.selected?.content?.blocks || []"/>
                 </div>
 
-                <div>
-                    <Button @click="openForm" label="Make Changes" severity="info" text raised />
+                <div class="flex gap-4">
+                    <Button @click="openForm" label="Make Changes" severity="info" text raised size="small" />
+                    <Button @click="openContentEditor" label="Update Content" severity="info" text raised
+                        size="small" />
                 </div>
 
             </div>
@@ -48,6 +48,8 @@
         </template>
 
         <template #form>
+            <ContentEditor :title="formData.title" :content="formData.content" :id="lessonStore.selected?.id ?? ''"
+                v-if="editorVisibility" @save-content="saveContent" @close-editor="closeContentEditor" />
             <LessonForm :visible="formVisibility" :mode="'update'" :data="formData" @close-me="closeForm" />
         </template>
 
@@ -57,10 +59,12 @@
 <script setup lang="ts">
     import { useLessonsStore } from '@/stores/lessons';
     import { computed, onMounted, ref } from 'vue';
+    import { APILessonRequest } from '@/types/lesson';
     import Authenticated from '@/layouts/Authenticated.vue'
     import LessonForm from '@/components/LessonForm.vue';
-    import { APILessonRequest } from '@/types/lesson';
     import Button from 'primevue/button';
+    import ContentEditor from '@/components/ContentEditor.vue';
+    import ContentRender from '@/components/content/ContentRender.vue'
 
     const isFetching = ref(false)
     const lessonStore = useLessonsStore()
@@ -70,9 +74,12 @@
     });
 
     const formVisibility = ref(false);
+    const editorVisibility = ref(false);
+
     const formData = ref<APILessonRequest>({
         title: lessonStore.selected?.title ?? '',
-        content: lessonStore.selected?.content ?? '',
+        content: lessonStore.selected?.content ?? null,
+        overview: lessonStore.selected?.overview ?? '',
         module_id: lessonStore.selected?.module_id ?? '',
         author_id: lessonStore.selected?.author_id ?? null,
         is_premium: lessonStore.selected?.is_premium ?? false,
@@ -86,7 +93,7 @@
 
     const openForm = async () => {
         formData.value.title = lessonStore.selected?.title ?? ''
-        formData.value.content = lessonStore.selected?.content ?? ''
+        formData.value.overview = lessonStore.selected?.overview ?? ''
         formData.value.module_id = lessonStore.selected?.module_id ?? ''
         formData.value.author_id = lessonStore.selected?.author_id ?? null
         formData.value.is_premium = lessonStore.selected?.is_premium ?? false
@@ -95,22 +102,27 @@
         formVisibility.value = true
     }
 
+    const openContentEditor = async () => {
+        editorVisibility.value = true
+        formData.value.content = lessonStore.selected?.content ?? {
+            blocks: [],
+            time: 0,
+            version: '',
+        }
+    }
+
     const contentAccess = computed(() => {
         if (!lessonStore.selected) return null
         return lessonStore.selected.is_premium ? 'Premium' : 'Free'
     })
 
-    const paragraphs = computed(() => {
-        if (!lessonStore.selected) return [];
-        return lessonStore.selected.content.split('\n\n');
-    });
+    async function saveContent(id: string, editorContent: any) {
+        await lessonStore.saveContent(id, editorContent)
+    }
 
-    const backUrl = computed(() => {
-        if (lessonStore.module_id) {
-            return `/modules/${lessonStore.module_id}/lessons`;
-        }
-        return `/dashboard`;
-    });
+    function closeContentEditor () {
+        editorVisibility.value = false
+    }
 
     onMounted(async () => {
         isFetching.value = true
@@ -120,44 +132,5 @@
 </script>
 
 <style scoped>
-    :deep(.content h1)
-    {
-        font-size: 1.3em;
-        font-weight: 600;
-        color: rgb(56, 189, 248);
-    }
-
-    :deep(.content h2)
-    {
-        font-size: 1.1em;
-        font-weight: 600;
-        color: rgb(56, 189, 248);
-    }
-
-    :deep(.content li[data-list="bullet"])
-    {
-        list-style-type: disc;
-        padding: .4em .8em;
-        margin-left: .8em;
-    }
-
-    :deep(.content li[data-list="ordered"])
-    {
-        list-style-type: decimal;
-        padding: .4em .8em;
-        margin-left: .8em;
-    }
-
-    :deep(.ql-code-block)
-    {
-        padding: 2em 2em;
-        background: rgba(7, 70, 122, 0.918);
-        color: white;
-        border-radius: .3em .3em 0em 0em;
-    }
-
-    :deep(.ql-align-center)
-    {
-        text-align: center;
-    }
+   
 </style>

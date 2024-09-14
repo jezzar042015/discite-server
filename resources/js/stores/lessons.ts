@@ -1,5 +1,6 @@
 import { get, post, put } from "@/composables/server";
 import { APILessonArrayItem, APILessonRequest } from "@/types/lesson";
+import { OutputData } from "@editorjs/editorjs";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRoute } from 'vue-router';
@@ -14,16 +15,20 @@ export const useLessonsStore = defineStore('lessons', () => {
 
     const fetchById = async () => {
         const id = router.params.id.toString()
-        active_id.value = id;        
+        active_id.value = id;
         const resp = await get(`/api/lessons/${id}`);
         const lesson = (await resp?.json())?.data || null;
-        if (lesson) selected.value = lesson
+        if (lesson) {
+            lesson.content = JSON.parse(lesson.content)
+            selected.value = lesson
+        }
     }
 
     const fetchByModule = async (id: string) => {
         module_id.value = id;
         const resp = await get(`/api/modules/${module_id.value}/lessons`);
-        lessons.value = (await resp?.json())?.lessons || [];
+        const data = (await resp?.json()) || [];
+        lessons.value = data?.lessons || []
     }
 
     const update = async (form: APILessonRequest) => {
@@ -38,9 +43,19 @@ export const useLessonsStore = defineStore('lessons', () => {
         await fetchById();
     }
 
+    const saveContent = async (id: string, content: OutputData) => {
+        const url = `/api/lesson-content`;
+        await post(
+            url,
+            JSON.stringify({ id, content })
+        );
+
+        if (selected.value) selected.value.content = content 
+    }
+
     return {
         lessons, selected,
         active_id, module_id,
-        fetchByModule, fetchById, update, insert
+        fetchByModule, fetchById, update, insert, saveContent
     }
 })

@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/users/register', [UserController::class, 'register'])->name('users.register');
     Route::post('/users/login', [UserController::class, 'login'])->name('users.login');
     Route::post('/users/logout', [UserController::class, 'logout'])->name('users.logout');
+    Route::post('/user-assign-role', [UserController::class, 'assignRole'])->name('users.assignRole');
     
     Route::get('/courses', [CourseController::class, 'index']);
     Route::get('/courses/{id}', [CourseController::class, 'show']);
@@ -36,4 +37,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/lessons/{id}', [LessonController::class, 'show']);
     Route::post('/lessons', [LessonController::class, 'create']);
     Route::put('/lessons/{id}', [LessonController::class, 'update']);
+    Route::post('/lesson-content', [LessonController::class, 'updateContent']);
 });

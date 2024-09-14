@@ -17,7 +17,7 @@
 
                             <WebNavLink router-to-name="Dashboard" nav-display-name="Dashboard" />
 
-                            <WebNavLink router-to-name="Users" nav-display-name="Users" />
+                            <WebNavLink v-if="authStore.isAdmin" router-to-name="Users" nav-display-name="Users" />
 
                             <li v-if="courseStore.courses.length > 0" class="py-1 px-4 border-b-2 border-transparent">
                                 <div @click="coursesWebMenu = !coursesWebMenu" class="relative">

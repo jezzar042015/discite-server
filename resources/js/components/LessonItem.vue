@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col gap-2 bg-white p-4 rounded-md shadow hover:shadow-md dark:bg-gray-900 dark:shadow-md dark:shadow-black/40">
+        class="flex flex-col gap-2 bg-white p-4 rounded-md md:min-w-full shadow hover:shadow-md dark:bg-gray-900 dark:shadow-md dark:shadow-black/40">
 
         <div class="text-xs">
             Lesson {{ i + 1 }}
@@ -12,7 +12,7 @@
         </router-link>
 
         <div class="text-sm">
-            <p>{{ contentPreview }}</p>
+            <p>{{ lesson.overview }}</p>
         </div>
 
         <router-link :to="`/lessons/${lesson.id}`">
@@ -32,10 +32,5 @@
         lesson: APILessonArrayItem
         i: number
     }>();
-
-    const contentPreview = computed(() => {
-        const sanitized = lesson.content.replace(/<[^>]*>/g, ' ')
-        return sanitized.substring(0, 230) + '  ....'
-    })
 
 </script>

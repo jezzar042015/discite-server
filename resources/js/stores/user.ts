@@ -1,5 +1,5 @@
 import { get, post } from "@/composables/server";
-import { APIUser } from "@/types/user";
+import { APIUser, UserType } from "@/types/user";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
@@ -36,16 +36,20 @@ export const useUserStore = defineStore('user', () => {
 
     const isAdmin = computed(() => {
         if (!current.value) return false;
-        return current.value.type === "admin"
+        return ["admin","dev"].includes(current.value.type) 
     })
 
     const logout = async () => {
         await post('/logout', '');
     }
 
+    const assignRole = async (id: string, type: UserType) => {
+        await post('/api/user-assign-role', JSON.stringify({ type, id }));
+    }
+
     return {
-        current, welcomeName, users, 
-        getCurrent, getUsers, logout, 
+        current, welcomeName, users,
+        getCurrent, getUsers, logout, assignRole,
         canBrowse, isAdmin
     }
 })

@@ -48,7 +48,7 @@ class UserController extends Controller
 
     public function login(Request $request): JsonResponse
     {
-        $credentials = $request->only('email','password');
+        $credentials = $request->only('email', 'password');
 
         $request->validate([
             'email' => 'required|email',
@@ -78,6 +78,18 @@ class UserController extends Controller
         return response()->json(['message' => 'You have been successfully logged out.'], 200);
     }
 
+    public function assignRole(Request $request)
+    {
+
+        try {
+            User::where('id', $request->id)->update(['type' => $request->type]);
+            return [
+                'message' => 'role assigned!'
+            ];
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Server Error', 'error' => $e->getMessage()], 500);
+        }
+    }
 
     public function destroy($id)
     {

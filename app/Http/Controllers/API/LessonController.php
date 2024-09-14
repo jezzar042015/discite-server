@@ -7,6 +7,7 @@ use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Http\Resources\LessonResource;
 use App\Models\Lesson;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
@@ -54,6 +55,19 @@ class LessonController extends Controller
             ]);
 
             return new LessonResource($lesson);
+        } catch (\Exception $error) {
+            return response()->json(['error' => $error->getMessage()], 500);
+        }
+    }
+
+    public function updateContent(Request $request)
+    {
+        try {
+            Lesson::where('id', $request->id)->update(['content' => $request->content]);
+
+            return [
+                'message' => $request->all()
+            ];
         } catch (\Exception $error) {
             return response()->json(['error' => $error->getMessage()], 500);
         }
