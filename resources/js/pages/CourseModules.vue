@@ -132,16 +132,17 @@
 
     onMounted(async () => {
         await moduleStore.setParentId()
+        await fetchModules()
     })
     
-    watch(
-        () => moduleStore.course_id,
-        async () => {
-            await moduleStore.setParentId()
-            await fetchModules()
-        }, {
-        immediate: true
-    })
+    // watch(
+    //     () => moduleStore.course_id,
+    //     async () => {
+    //         await moduleStore.setParentId()
+    //         await fetchModules()
+    //     }, {
+    //     immediate: true
+    // })
 
   
 </script>

@@ -31,7 +31,7 @@
             </div>
 
             <div class="flex w-full gap-2 text-gray-800 dark:text-gray-400">
-                <strong>Note:</strong> Lesson content could be written on a separate Editor. 
+                <strong>Note:</strong> Lesson content would be written on our Content Editor. 
                 <!-- <label class="uppercase text-xs" for="description">Content</label> -->
                 <!-- <ContentEditor :changeNotificationQuillEditor="changed" v-model="data.content" /> -->
             </div>

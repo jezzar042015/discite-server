@@ -95,7 +95,7 @@
         () => {
             if (!data.level) return
             const level = courseStore.levelOptions.find(crs => crs.code == data.level)
-            selectedLevel.value = level ? level : { code: '', name: '' }
+            selectedLevel.value = level || { code: '', name: '' };
         },
         {
             immediate: true

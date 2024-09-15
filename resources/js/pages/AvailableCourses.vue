@@ -1,6 +1,6 @@
 <template>
     <Authenticated :is-fetching="isFetching">
-        
+
         <template #header>
             <div
                 class="flex justify-between items-center min-w-full px-2 text-lg font-extrabold text-sky-700 uppercase dark:text-sky-500">
@@ -38,9 +38,11 @@
     import CoureForm from '@/components/CourseForm.vue'
     import CourseItem from '@/components/CourseItem.vue'
     import Authenticated from '@/layouts/Authenticated.vue'
+    import { useUserStore } from '@/stores/user';
 
-    const isFetching = ref(false);
     const courseStore = useCoursesStore();
+    const userStore = useUserStore()
+    const isFetching = ref(false);
     const form = ref(false)
     const formMode = ref<'new' | 'update'>('new')
     const formData = ref<APICourseRequest>({
@@ -49,6 +51,7 @@
         level: 'BEGINNER',
         publish: false,
         is_premium: false,
+        author_id: null
     });
 
     const makeChanges = (course: APICourseArrayItem) => {
@@ -68,6 +71,7 @@
         formData.value.level = "BEGINNER";
         formData.value.is_premium = false;
         formData.value.publish = false;
+        formData.value.author_id = userStore.current?.id || null;
         form.value = true;
     }
 
@@ -75,7 +79,7 @@
         form.value = false;
     }
 
-    const noCourses = computed(()=> {
+    const noCourses = computed(() => {
         return courseStore.courses.length === 0
     })
 

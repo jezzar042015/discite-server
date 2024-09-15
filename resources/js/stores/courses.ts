@@ -1,5 +1,5 @@
 import { get, post, put } from "@/composables/server";
-import { APICourseArrayItem, APICourseRequest } from "@/types/course";
+import { APICourseArrayItem, APICourseRequest, CourseLevel } from "@/types/course";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -8,7 +8,7 @@ export const useCoursesStore = defineStore('courses', () => {
     const courses = ref<APICourseArrayItem[]>([]);
     const selected = ref<APICourseArrayItem | null>(null);
 
-    const levelOptions = ref([
+    const levelOptions = ref<{ code: CourseLevel, name: string }[]>([
         { code: 'BEGINNER', name: 'Beginner' },
         { code: 'INTERMEDIATE', name: 'Intermediate' },
         { code: 'ADVANCED', name: 'Advanced' }

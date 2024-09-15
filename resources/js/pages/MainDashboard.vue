@@ -26,6 +26,10 @@
                 </div>
             </div>
         </template>
+
+        <template #items-list>
+            <CardHolder />
+        </template>
     </Authenticated>
 </template>
 
@@ -34,6 +38,7 @@
     import { useAppStore } from '@/stores/app';
     import { useCoursesStore } from '@/stores/courses';
     import { useUserStore } from '@/stores/user';
+    import CardHolder from '@/components/dashboard/CardHolder.vue'
 
     const app = useAppStore()
     const auth = useUserStore()

@@ -31,6 +31,7 @@
     import { onMounted } from 'vue';
     import { useCoursesStore } from '@/stores/courses';
     import { useUserStore } from '@/stores/user';
+    import { useRoute } from 'vue-router';
 
     defineProps({
         isFetching: {
@@ -39,12 +40,15 @@
         }
     });
 
+    const route = useRoute()
     const courseStore = useCoursesStore()
     const authStore = useUserStore()
 
     onMounted(async () => {
-        await authStore.getCurrent()
-        await courseStore.fetchCourses()
+        if (!authStore.current) await authStore.getCurrent();
+
+        if(!['Courses'].includes(route.name as string))
+            await courseStore.fetchCourses()
     })
 </script>
 

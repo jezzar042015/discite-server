@@ -93,11 +93,11 @@
     const openNewForm = async () => {
         formData.value.module_id = moduleStore.selected ? moduleStore.selected.id : route.params.id.toString()
         formData.value.title = ''
-        formData.value.content = {
+        formData.value.content = JSON.stringify({
             blocks: [],
             time: 0,
             version: '',
-        }
+        })
         formData.value.overview = ''
         formData.value.order = 0
         formData.value.publish = false

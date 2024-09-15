@@ -23,4 +23,5 @@ export interface APICourseRequest {
     level: CourseLevel
     is_premium: boolean
     publish: boolean
+    author_id: string | null
 }

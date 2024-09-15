@@ -18,7 +18,7 @@ export interface APILessonArrayItem {
 export interface APILessonRequest {
     author_id: string | null
     title: string
-    content: OutputData | null
+    content: string | null
     overview: string
     module_id: string
     is_premium: boolean

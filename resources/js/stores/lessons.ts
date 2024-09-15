@@ -39,8 +39,9 @@ export const useLessonsStore = defineStore('lessons', () => {
     }
     const insert = async (form: APILessonRequest) => {
         const url = `/api/lessons`
+        if (typeof form.content == 'object') form.content = JSON.stringify(form.content)
         await post(url, JSON.stringify(form));
-        await fetchById();
+        if (router.name == 'LessonContent') await fetchById();
     }
 
     const saveContent = async (id: string, content: OutputData) => {
@@ -50,7 +51,7 @@ export const useLessonsStore = defineStore('lessons', () => {
             JSON.stringify({ id, content })
         );
 
-        if (selected.value) selected.value.content = content 
+        if (selected.value) selected.value.content = content
     }
 
     return {

@@ -36,13 +36,14 @@
 
 <style scoped>
 
-    h1,
+    /* h1,
     h2,
     h3,
     h4,
     h5,
     h6
     {
+        margin-bottom: .5em;
         font-weight: 600;
         color: rgb(0, 172, 172);
         padding: .2em 0em;
@@ -77,5 +78,5 @@
     h6
     {
         font-size: 1.05em;
-    }
+    } */
 </style>

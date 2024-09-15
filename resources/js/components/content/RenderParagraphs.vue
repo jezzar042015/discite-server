@@ -1,5 +1,5 @@
 <template>
-    <p class="" v-html="block.data.text"></p>
+    <p class="pt-1 pb-5 leading-relaxed" v-html="block.data.text"></p>
 
     <!-- <p class="text-xs bg-black text-white py-3 px-1 mt-3">
         {{ block.data.text }}
@@ -17,7 +17,7 @@
 <style scoped>
     :deep(a)
     {
-        background-color: rgba(0, 128, 128, 0.151);
+        /* background-color: rgba(0, 128, 128, 0.151); */
         padding: .1em .2em;
         border-radius: .2em;
         transition: ease-in-out .300s;
@@ -25,7 +25,7 @@
 
     :deep(a:hover)
     {
-        background-color: rgb(0, 128, 128);
+        /* background-color: rgb(0, 128, 128); */
     }
 
     :deep(u)
@@ -38,7 +38,7 @@
 
     :deep(b)
     {
-        color: rgb(0, 156, 156);
+        /* color: rgb(0, 156, 156); */
     }
 
     @media (prefers-color-scheme: dark)
