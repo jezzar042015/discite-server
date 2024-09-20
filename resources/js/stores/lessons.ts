@@ -63,7 +63,7 @@ export const useLessonsStore = defineStore('lessons', () => {
     }
 
     return {
-        lessons, selected,
+        lessons, selected,recents,
         active_id, module_id,
         fetchByModule, fetchById, update, insert, saveContent, getRecent
     }

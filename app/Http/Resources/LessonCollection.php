@@ -25,8 +25,8 @@ class LessonCollection extends JsonResourceCollection
           'comments' => $lesson->comments,
           'is_premium' => $lesson->is_premium,
           'publish' => $lesson->publish,
-          'created_at' => $lesson->created_at->format('Y-m-d'),
-          'updated_at' => $lesson->updated_at->format('Y-m-d'),
+          'created_at' => $lesson->created_at,
+          'updated_at' => $lesson->updated_at,
         ];
       })
     ];

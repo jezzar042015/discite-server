@@ -24,8 +24,8 @@ class LessonResource extends JsonJsonResource
           'comments' => $this->comments,
           'is_premium' => $this->is_premium,
           'publish' => $this->publish,
-          'created_at' => $this->created_at->format('Y-m-d'),
-          'updated_at' => $this->updated_at->format('Y-m-d'),
+          'created_at' => $this->created_at,
+          'updated_at' => $this->updated_at,
       ],
     ];
   }

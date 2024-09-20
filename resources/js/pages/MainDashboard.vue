@@ -28,19 +28,20 @@
         </template>
 
         <template #items-list>
-            <CardHolder />
+            <RecentLessons />
         </template>
     </Authenticated>
 </template>
 
 <script setup lang="ts">
     import Authenticated from '@/layouts/Authenticated.vue';
+    import RecentLessons from '@/components/dashboard/RecentLessons.vue';
+        
     import { useAppStore } from '@/stores/app';
-    import { useCoursesStore } from '@/stores/courses';
     import { useUserStore } from '@/stores/user';
-    import CardHolder from '@/components/dashboard/CardHolder.vue'
 
     const app = useAppStore()
     const auth = useUserStore()
-    const courseStore = useCoursesStore()
+
+    
 </script>

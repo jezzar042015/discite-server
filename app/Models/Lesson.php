@@ -53,8 +53,8 @@ class Lesson extends Model
   public function casts(): array
   {
     return [
-      'created_at' => 'datetime:Y-m-d',
-      'updated_at' => 'datetime:Y-m-d',
+      // 'created_at' => 'datetime:Y-m-d',
+      // 'updated_at' => 'datetime:Y-m-d',
       'is_premium' => 'boolean',
       'publish' => 'boolean',
     ];
