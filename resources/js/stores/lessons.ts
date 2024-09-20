@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router';
 export const useLessonsStore = defineStore('lessons', () => {
 
     const lessons = ref<APILessonArrayItem[]>([])
+    const recents = ref<APILessonArrayItem[]>([])
     const module_id = ref<string | null>(null)
     const active_id = ref<string | null>(null)
     const selected = ref<APILessonArrayItem | null>(null)
@@ -54,9 +55,16 @@ export const useLessonsStore = defineStore('lessons', () => {
         if (selected.value) selected.value.content = content
     }
 
+    const getRecent = async () => {
+        const url = `/api/lessons/most-recent`
+        const resp = await get(url)
+        const data = (await resp?.json()) || [];
+        recents.value = data?.lessons || []
+    }
+
     return {
         lessons, selected,
         active_id, module_id,
-        fetchByModule, fetchById, update, insert, saveContent
+        fetchByModule, fetchById, update, insert, saveContent, getRecent
     }
 })

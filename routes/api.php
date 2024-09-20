@@ -11,13 +11,13 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::post('/users/login', [UserController::class, 'login'])->name('users.login');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.all');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.one');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy.one');
     Route::post('/users/register', [UserController::class, 'register'])->name('users.register');
-    Route::post('/users/login', [UserController::class, 'login'])->name('users.login');
     Route::post('/users/logout', [UserController::class, 'logout'])->name('users.logout');
     Route::post('/user-assign-role', [UserController::class, 'assignRole'])->name('users.assignRole');
     
@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/modules/{id}', [ModuleController::class, 'destroy']);
 
     Route::get('/modules/{id}/lessons', [LessonController::class, 'modular']);
+    Route::get('/lessons/most-recent', [LessonController::class, 'mostRecent']);
     Route::get('/lessons/{id}', [LessonController::class, 'show']);
     Route::post('/lessons', [LessonController::class, 'create']);
     Route::put('/lessons/{id}', [LessonController::class, 'update']);

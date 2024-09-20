@@ -7,6 +7,7 @@ use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Http\Resources\LessonResource;
 use App\Models\Lesson;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -71,6 +72,20 @@ class LessonController extends Controller
             ];
         } catch (\Exception $error) {
             return response()->json(['error' => $error->getMessage()], 500);
+        }
+    }
+
+    public function mostRecent()
+    {
+        try {
+            $lessons =  Lesson::where('updated_at', '>=', Carbon::now()->subDays(7))
+                ->orderBy('updated_at', 'asc')
+                ->get();
+
+            return response()->json(['lessons' => $lessons]);
+            
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
