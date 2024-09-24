@@ -11,19 +11,19 @@
                     </div>
                 </div>
 
-                <div v-if="auth.canBrowse" class="w-full grid grid-cols-1 grid-rows-2 gap-4">
+                <div v-if="auth.canBrowse" class="w-full grid grid-cols-1 grid-rows-1 gap-4">
                     <router-link :to="{ name: 'Courses' }">
                         <div class="flex gap-4 items-center bg-white dark:bg-gray-700 p-6 rounded-lg">
                             <i class="pi pi-book"></i>
                             Navigate Courses
                         </div>
                     </router-link>
-
                 </div>
 
                 <div class="text-center" v-else>
                     Hmmm! Contents in this site are for Admin company access only.
                 </div>
+
             </div>
         </template>
 

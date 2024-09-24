@@ -78,7 +78,7 @@ class LessonController extends Controller
     public function mostRecent()
     {
         try {
-            $lessons =  Lesson::where('updated_at', '>=', Carbon::now()->subDays(7))
+            $lessons =  Lesson::where('updated_at', '>=', Carbon::now()->subDays(14))
                 ->orderBy('updated_at', 'asc')
                 ->get();
 
